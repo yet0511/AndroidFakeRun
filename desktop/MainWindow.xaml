@@ -1,0 +1,103 @@
+<Window x:Class="AndroidFakeRun.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Android Fake Run" Width="960" Height="620" MinWidth="780" MinHeight="520"
+        WindowStartupLocation="CenterScreen" Closing="WindowClosing">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Padding" Value="12,8" />
+            <Setter Property="Margin" Value="6" />
+            <Setter Property="MinHeight" Value="48" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+    </Window.Resources>
+
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="帮助">
+                <MenuItem Header="安卓连接说明" Click="ShowAndroidHelp" />
+                <MenuItem Header="关于" Click="ShowAbout" />
+            </MenuItem>
+        </Menu>
+
+        <StatusBar DockPanel.Dock="Bottom">
+            <TextBlock x:Name="StatusText" Text="等待连接安卓设备" />
+        </StatusBar>
+
+        <Grid Margin="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.15*" />
+                <ColumnDefinition Width="0.85*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Margin="0,0,12,0" Padding="10" CornerRadius="8"
+                    BorderBrush="#B0B0B0" BorderThickness="1" Background="#EEFFFFFF">
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Top" Margin="0,0,0,8" FontSize="16" FontWeight="SemiBold"
+                               Text="路线坐标（支持原版 fakerun.myth.cx 导出的 BD-09 JSON）" />
+                    <TextBox x:Name="RouteTextBox" AcceptsReturn="True" AcceptsTab="True"
+                             TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
+                             HorizontalScrollBarVisibility="Auto" SpellCheck.IsEnabled="False" />
+                </DockPanel>
+            </Border>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <UniformGrid Grid.Row="0" Columns="2">
+                    <Button x:Name="ConnectButton" Content="连接" Click="Connect" />
+                    <Button x:Name="DisconnectButton" Content="断开" Click="Disconnect" />
+                    <Button x:Name="ResetButton" Content="重置定位" Click="ResetLocation" />
+                    <Button Content="退出" Click="Quit" />
+                </UniformGrid>
+
+                <ProgressBar x:Name="RunProgress" Grid.Row="1" Height="24" Margin="6,14,6,10"
+                             Minimum="0" Maximum="100" />
+
+                <Grid Grid.Row="2" Margin="6,4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock VerticalAlignment="Center" Text="循环次数" />
+                    <TextBox x:Name="RunTimesTextBox" Grid.Column="1" Margin="8,0,14,0" Text="9" />
+                    <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="速度 m/s" />
+                    <TextBox x:Name="SpeedTextBox" Grid.Column="3" Margin="8,0,0,0" Text="3" />
+                </Grid>
+
+                <Button x:Name="StartButton" Grid.Row="3" Margin="6,14,6,6" MinHeight="64"
+                        Content="开始跑步" Click="StartRun" />
+
+                <UniformGrid x:Name="RunningButtons" Grid.Row="3" Columns="2" Visibility="Collapsed">
+                    <Button x:Name="StopButton" Content="停止跑步" Click="StopRun" />
+                    <Button x:Name="PauseButton" Content="暂停跑步" Click="PauseRun" />
+                    <Button x:Name="ResumeButton" Content="恢复跑步" Click="ResumeRun" Visibility="Collapsed" />
+                </UniformGrid>
+
+                <Border Grid.Row="4" Margin="6,14,6,6" Padding="10" CornerRadius="6"
+                        Background="#EEF4FA" BorderBrush="#B8CFE5" BorderThickness="1">
+                    <TextBlock x:Name="DeviceDetails" TextWrapping="Wrap"
+                               Text="请用 USB 连接安卓手机，并打开开发者选项和 USB 调试。首次连接请在手机上允许此电脑调试。" />
+                </Border>
+
+                <TextBlock Grid.Row="5" Margin="6" Foreground="#666666" TextWrapping="Wrap"
+                           Text="提示：红米/小米通常还需开启“USB 调试（安全设置）”，并在开发者选项中将 Android Fake Run 选为模拟位置信息应用。" />
+            </Grid>
+        </Grid>
+    </DockPanel>
+</Window>

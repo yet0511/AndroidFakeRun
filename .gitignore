@@ -1,0 +1,7 @@
+publish/
+*.zip
+companion/.gradle/
+companion/app/build/
+desktop/bin/
+desktop/obj/
+*.user

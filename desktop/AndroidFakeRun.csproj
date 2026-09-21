@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>AndroidFakeRun</AssemblyName>
+    <RootNamespace>AndroidFakeRun</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Resource Include="..\..\iOSFakeRun-master\iOSFakeRun\Resources\background.png" Link="Resources\background.png" />
+    <Content Include="..\companion\app\build\outputs\apk\release\app-release.apk"
+             Link="companion\AndroidFakeRun.Companion.apk"
+             CopyToOutputDirectory="PreserveNewest"
+             Condition="Exists('..\companion\app\build\outputs\apk\release\app-release.apk')" />
+  </ItemGroup>
+</Project>
