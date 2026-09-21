@@ -2,6 +2,10 @@
 
 Windows 上控制安卓实体手机（包括红米/小米）的虚拟跑步工具。它保留原 `iOS Fake Run` 的路线输入、BD-09 → WGS-84 坐标转换、速度、循环次数、暂停、恢复、停止、进度和重置定位功能，并把 iOS 设备通信替换成 ADB + 安卓配套 APK。
 
+## 直接下载
+
+不需要编译，前往 [GitHub Releases](https://github.com/yet0511/AndroidFakeRun/releases/latest) 下载 `AndroidFakeRun-win-x64.zip`，完整解压后运行 `AndroidFakeRun.exe`。不要只下载单个 EXE，程序还需要压缩包内的 `platform-tools` 和 `companion` 目录。
+
 ## 使用方法
 
 1. 在安卓手机的“设置 → 关于手机”中连续点击系统版本，开启开发者选项。
