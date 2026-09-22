@@ -18,4 +18,10 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+    dependencies {
+        // LSPosed/Xposed Hook API：官方 api-82（jcenter 已下线，此处随仓库 vendored），
+        // 仅参与编译，不打进 APK（运行时由 LSPosed 框架提供实现）。
+        compileOnly files('libs/XposedBridgeApi-82.jar')
+    }
 }

@@ -27,7 +27,7 @@ public final class MainActivity extends Activity {
         layout.addView(title, new LinearLayout.LayoutParams(-1, -2));
 
         TextView message = new TextView(this);
-        message.setText("这是 Windows 控制端的手机配套组件。\n\n请在开发者选项的“选择模拟位置信息应用”中选择 Android Fake Run，然后回到电脑点击连接。运行期间请勿强制停止本应用。\n\n红米/小米还建议开启“USB 调试（安全设置）”。");
+        message.setText("这是 Windows 控制端的手机配套组件。\n\n经典模式：请在开发者选项的“选择模拟位置信息应用”中选择 Android Fake Run，然后回到电脑点击连接。\n\n防检测模式（推荐，需 Root + LSPosed）：在 LSPosed 里启用本模块并勾选目标应用后，在电脑端勾选“防检测注入”，此模式不使用系统模拟位置，目标应用检测不到 mock 标记。\n\n运行期间请勿强制停止本应用。红米/小米还建议开启“USB 调试（安全设置）”。");
         message.setTextSize(17);
         message.setLineSpacing(0, 1.25f);
         message.setPadding(0, pad, 0, pad);

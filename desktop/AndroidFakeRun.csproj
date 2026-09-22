@@ -9,7 +9,6 @@
     <RootNamespace>AndroidFakeRun</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Resource Include="..\..\iOSFakeRun-master\iOSFakeRun\Resources\background.png" Link="Resources\background.png" />
     <Content Include="..\companion\app\build\outputs\apk\release\app-release.apk"
              Link="companion\AndroidFakeRun.Companion.apk"
              CopyToOutputDirectory="PreserveNewest"

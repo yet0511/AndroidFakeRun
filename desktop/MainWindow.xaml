@@ -53,6 +53,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
@@ -80,23 +81,27 @@
                     <TextBox x:Name="SpeedTextBox" Grid.Column="3" Margin="8,0,0,0" Text="3" />
                 </Grid>
 
-                <Button x:Name="StartButton" Grid.Row="3" Margin="6,14,6,6" MinHeight="64"
+                <CheckBox x:Name="HookModeCheckBox" Grid.Row="3" Margin="6,10,6,0" FontSize="14"
+                          Content="防检测注入模式（需 Root + LSPosed，不走系统模拟位置）"
+                          Checked="HookModeChanged" Unchecked="HookModeChanged" />
+
+                <Button x:Name="StartButton" Grid.Row="4" Margin="6,14,6,6" MinHeight="64"
                         Content="开始跑步" Click="StartRun" />
 
-                <UniformGrid x:Name="RunningButtons" Grid.Row="3" Columns="2" Visibility="Collapsed">
+                <UniformGrid x:Name="RunningButtons" Grid.Row="4" Columns="2" Visibility="Collapsed">
                     <Button x:Name="StopButton" Content="停止跑步" Click="StopRun" />
                     <Button x:Name="PauseButton" Content="暂停跑步" Click="PauseRun" />
                     <Button x:Name="ResumeButton" Content="恢复跑步" Click="ResumeRun" Visibility="Collapsed" />
                 </UniformGrid>
 
-                <Border Grid.Row="4" Margin="6,14,6,6" Padding="10" CornerRadius="6"
+                <Border Grid.Row="5" Margin="6,14,6,6" Padding="10" CornerRadius="6"
                         Background="#EEF4FA" BorderBrush="#B8CFE5" BorderThickness="1">
                     <TextBlock x:Name="DeviceDetails" TextWrapping="Wrap"
                                Text="请用 USB 连接安卓手机，并打开开发者选项和 USB 调试。首次连接请在手机上允许此电脑调试。" />
                 </Border>
 
-                <TextBlock Grid.Row="5" Margin="6" Foreground="#666666" TextWrapping="Wrap"
-                           Text="提示：红米/小米通常还需开启“USB 调试（安全设置）”，并在开发者选项中将 Android Fake Run 选为模拟位置信息应用。" />
+                <TextBlock Grid.Row="6" Margin="6" Foreground="#666666" TextWrapping="Wrap"
+                           Text="提示：经典模式需在开发者选项中将 Android Fake Run 选为模拟位置信息应用；防检测模式需 Root + LSPosed 并勾选目标应用，可绕过 isFromMockProvider 检测。" />
             </Grid>
         </Grid>
     </DockPanel>

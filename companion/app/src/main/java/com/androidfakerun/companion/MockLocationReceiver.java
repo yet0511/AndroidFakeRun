@@ -10,6 +10,8 @@ import android.location.provider.ProviderProperties;
 import android.os.Build;
 import android.os.SystemClock;
 
+import com.androidfakerun.companion.hook.HookConfig;
+
 public final class MockLocationReceiver extends BroadcastReceiver {
     private static final String PREFIX = "com.androidfakerun.companion.";
 
@@ -25,6 +27,21 @@ public final class MockLocationReceiver extends BroadcastReceiver {
             if ((PREFIX + "RESET").equals(action)) {
                 removeProvider(manager, LocationManager.GPS_PROVIDER);
                 removeProvider(manager, LocationManager.NETWORK_PROVIDER);
+                // Hook 模式也要清掉共享坐标，避免残留盖住真实定位。
+                try { HookConfig.clear(context); } catch (Exception ignored) { }
+                success("OK");
+                return;
+            }
+            if ((PREFIX + "ENABLE_HOOK").equals(action)) {
+                // 进入防检测模式：确保经典 test provider 已拆除，之后只写共享坐标。
+                removeProvider(manager, LocationManager.GPS_PROVIDER);
+                removeProvider(manager, LocationManager.NETWORK_PROVIDER);
+                HookConfig.setEnabled(context, true);
+                success("OK");
+                return;
+            }
+            if ((PREFIX + "DISABLE_HOOK").equals(action)) {
+                HookConfig.setEnabled(context, false);
                 success("OK");
                 return;
             }
@@ -33,6 +50,13 @@ public final class MockLocationReceiver extends BroadcastReceiver {
             double latitude = Double.parseDouble(intent.getStringExtra("latitude"));
             double longitude = Double.parseDouble(intent.getStringExtra("longitude"));
             float speed = Float.parseFloat(intent.getStringExtra("speed"));
+            // 防检测模式：只写 Hook 共享坐标，全程不碰 addTestProvider，
+            // 系统里就没有 mock provider，isFromMockProvider 天然为 false。
+            if (HookConfig.isHookEnabledLocal(context)) {
+                HookConfig.setLocation(context, latitude, longitude, speed);
+                success("OK");
+                return;
+            }
             setProvider(manager, LocationManager.GPS_PROVIDER, latitude, longitude, speed);
             // Some vendor ROMs do not allow the network provider to be replaced.
             // GPS is sufficient for fused-location clients; network is best effort.

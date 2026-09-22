@@ -7,6 +7,19 @@
         android:allowBackup="false"
         android:label="Android Fake Run"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="xposedmodule"
+            android:value="true" />
+        <meta-data
+            android:name="xposeddescription"
+            android:value="Android Fake Run 防检测定位注入：免 mock provider，直接向目标应用注入坐标" />
+        <meta-data
+            android:name="xposedminversion"
+            android:value="82" />
+        <provider
+            android:name=".FakeRunProvider"
+            android:authorities="com.androidfakerun.companion.config"
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -22,6 +35,8 @@
                 <action android:name="com.androidfakerun.companion.PING" />
                 <action android:name="com.androidfakerun.companion.SET_LOCATION" />
                 <action android:name="com.androidfakerun.companion.RESET" />
+                <action android:name="com.androidfakerun.companion.ENABLE_HOOK" />
+                <action android:name="com.androidfakerun.companion.DISABLE_HOOK" />
             </intent-filter>
         </receiver>
     </application>

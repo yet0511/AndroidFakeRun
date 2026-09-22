@@ -68,6 +68,17 @@ internal sealed class AdbClient
             throw new InvalidOperationException(ParseBroadcastError(output));
     }
 
+    /// <summary>
+    /// 切换防检测注入模式。启用后配套端只写 Hook 共享坐标，不再调用
+    /// addTestProvider，目标应用侧由 LSPosed 直接注入坐标，无 mock 标记。
+    /// </summary>
+    public async Task SetHookModeAsync(string serial, bool enabled, CancellationToken token)
+    {
+        var output = await BroadcastAsync(serial, enabled ? "ENABLE_HOOK" : "DISABLE_HOOK", [], token);
+        if (!output.Contains("result=-1", StringComparison.OrdinalIgnoreCase))
+            throw new InvalidOperationException(ParseBroadcastError(output));
+    }
+
     private async Task<string> BroadcastAsync(string serial, string action, IEnumerable<string> extras, CancellationToken token)
     {
         var args = new List<string> { "shell", "am", "broadcast", "-n", PackageName + "/.MockLocationReceiver", "-a", PackageName + "." + action };
